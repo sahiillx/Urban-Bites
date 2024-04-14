@@ -44,6 +44,10 @@ const ListItem = styled.div`
     border-radius: 50%;
     transition: 0.2s;
   }
+  .active {
+    border: 4px solid tomato;
+    padding: 2px;
+  }
 
   p {
     margin-top: 10px;
@@ -53,7 +57,7 @@ const ListItem = styled.div`
   }
 `;
 
-const ExploreMenu = () => {
+const ExploreMenu = ({ category, setCategory }) => {
   return (
     <ExpMenu id="explore-menu">
       <h1>Explore our menu</h1>
@@ -65,8 +69,20 @@ const ExploreMenu = () => {
       <ExpMenuList>
         {menu_list.map((item, index) => {
           return (
-            <ListItem key={index}>
-              <img src={item.menu_image} alt={item.menu_name} />
+            <ListItem
+              onClick={() =>
+                setCategory(
+                  (prev) => (prev === item.menu_name ? "All" : item.menu_name),
+                  console.log(item.menu_name)
+                )
+              }
+              key={index}
+            >
+              <img
+                className={category === item.menu_name ? "active" : ""}
+                src={item.menu_image}
+                alt={item.menu_name}
+              />
               <p>{item.menu_name}</p>
             </ListItem>
           );
