@@ -11,7 +11,7 @@ const FoodItems = styled.div`
   animation: fadeIn 1s;
 `;
 const ImgCont = styled.div`
-    position: relative;
+  position: relative;
   img {
     width: 100%;
     border-radius: 15px 15px 0 0;
@@ -56,22 +56,21 @@ const ItemPrice = styled.div`
 `;
 
 const ItemCounter = styled.div`
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px;
-    border-radius: 50px;
-    background-color: white;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 50px;
+  background-color: white;
 
-    img {
-        width: 30px;
-        cursor: pointer;
-    }
+  img {
+    width: 25px;
+    cursor: pointer;
+  }
 `;
-
 
 const FoodItem = ({ id, name, price, description, image }) => {
   const [itemCount, setItemCount] = React.useState(0);
@@ -81,16 +80,25 @@ const FoodItem = ({ id, name, price, description, image }) => {
       <ImgCont>
         <img src={image} alt="" />
         {!itemCount ? (
-          <img className="add"
+          <img
+            className="add"
             onClick={() => setItemCount((prev) => prev + 1)}
             src={assets.add_icon_white}
             alt=""
           />
         ) : (
           <ItemCounter>
-                <img onClick={()=> setItemCount(prev=> prev-1)} src={assets.remove_icon_red} alt="" />
-                <p>{itemCount}</p>
-                <img onClick={()=> setItemCount(prev=> prev+1)} src={assets.add_icon_green} alt="" />
+            <img
+              onClick={() => setItemCount((prev) => prev - 1)}
+              src={assets.remove_icon_red}
+              alt=""
+            />
+            <p>{itemCount}</p>
+            <img
+              onClick={() => setItemCount((prev) => prev + 1)}
+              src={assets.add_icon_green}
+              alt=""
+            />
           </ItemCounter>
         )}
       </ImgCont>
