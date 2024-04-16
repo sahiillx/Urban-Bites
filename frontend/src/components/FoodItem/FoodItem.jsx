@@ -67,7 +67,7 @@ const ItemCounter = styled.div`
   background-color: white;
 
   img {
-    width: 25px;
+    width: 30px;
     cursor: pointer;
   }
 `;
