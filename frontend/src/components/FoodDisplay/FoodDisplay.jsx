@@ -4,7 +4,6 @@ import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
 
 const Food = styled.div`
-
   margin-top: 30px;
 
   h2 {
@@ -21,23 +20,25 @@ const FoodList = styled.div`
   row-gap: 30px;
 `;
 
-const FoodDisplay = () => {
+const FoodDisplay = ({ category }) => {
   const { food_list } = useContext(StoreContext);
   return (
     <Food id="food-display">
       <h2>Top dishes near you</h2>
       <FoodList>
         {food_list.map((item, index) => {
-          return (
-            <FoodItem
-              key={index}
-              id={item._id}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              image={item.image}
-            />
-          );
+          if ((category === "All" || category === item.category)) {
+            return (
+              <FoodItem
+                key={index}
+                id={item._id}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                image={item.image}
+              />
+            );
+          }
         })}
       </FoodList>
     </Food>

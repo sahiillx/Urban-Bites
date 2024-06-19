@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import { assets } from "../../assets/assets";
-
+import { StoreContext } from "../../context/StoreContext";
 const FoodItems = styled.div`
   width: 100%;
   margin: auto;
@@ -73,29 +73,30 @@ const ItemCounter = styled.div`
 `;
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const [itemCount, setItemCount] = React.useState(0);
+  const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
+ 
 
   return (
     <FoodItems>
       <ImgCont>
         <img src={image} alt="" />
-        {!itemCount ? (
+        {!cartItems[id] ? (
           <img
             className="add"
-            onClick={() => setItemCount((prev) => prev + 1)}
+            onClick={() => addToCart(id)}
             src={assets.add_icon_white}
             alt=""
           />
         ) : (
           <ItemCounter>
             <img
-              onClick={() => setItemCount((prev) => prev - 1)}
+              onClick={() => removeFromCart(id)}
               src={assets.remove_icon_red}
               alt=""
             />
-            <p>{itemCount}</p>
+            <p>{cartItems[id]}</p>
             <img
-              onClick={() => setItemCount((prev) => prev + 1)}
+              onClick={() => addToCart(id)}
               src={assets.add_icon_green}
               alt=""
             />

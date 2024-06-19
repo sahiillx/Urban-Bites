@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
 
 const Nav = styled.div`
   padding: 20px 0;
@@ -70,16 +71,18 @@ const Img = styled.img`
 `;
 const NavSearch = styled.div`
   position: relative;
+
+  .dot {
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 5px;
+    top: -8px;
+    right: -8px;
+  }
 `;
-const Dot = styled.div`
-  position: absolute;
-  min-width: 10px;
-  min-height: 10px;
-  background-color: tomato;
-  border-radius: 5px;
-  top: -8px;
-  right: -8px;
-`;
+
 const Button = styled.button`
   background: transparent;
   font-size: 16px;
@@ -105,9 +108,12 @@ const Button = styled.button`
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = React.useState("Home");
+  const { getTotalCartAmount } = React.useContext(StoreContext);
   return (
     <Nav>
-      <Logo src={assets.logo} />
+      <Link to="/">
+        <Logo src={assets.logo} />
+      </Link>
       <NavMenu>
         <Link
           to="/"
@@ -141,8 +147,10 @@ const Navbar = ({ setShowLogin }) => {
       <NavRight>
         <Img src={assets.search_icon} />
         <NavSearch>
-          <Link to="/cart"><Img src={assets.basket_icon} /></Link>
-          <Dot></Dot>
+          <Link to="/cart">
+            <Img src={assets.basket_icon} />
+          </Link>
+          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </NavSearch>
         <Button onClick={() => setShowLogin(true)}> Sign In</Button>
       </NavRight>
