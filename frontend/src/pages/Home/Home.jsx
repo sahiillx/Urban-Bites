@@ -6,10 +6,14 @@ import FoodDisplay from '../../components/FoodDisplay/FoodDisplay';
 import AppDownload from '../../components/AppDownload/AppDownload';
 
 
+const HomeContainer = styled.div`
+   // Hide horizontal scroll
+`;
+
 const Home = () => {
   const [category, setCategory] = React.useState("All");
   return (
-    <div>
+    <HomeContainer>
         <Header />
         <ExploreMenu
           category={category}
@@ -19,7 +23,7 @@ const Home = () => {
         category={category}
         />
         <AppDownload />
-    </div>
+    </HomeContainer>
   )
 }
 

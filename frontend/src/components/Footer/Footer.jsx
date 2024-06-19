@@ -26,6 +26,12 @@ const FooterContent = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 80px;
+
+  @media (max-width:750px) {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+  }
 `;
 const Left = styled.div`
   display: flex;
@@ -79,7 +85,11 @@ const SocialIcons = styled.div`
     margin-right: 15px;
     }
 `;
-const CopyRight = styled.div``;
+const CopyRight = styled.div`
+  @media (max-width: 750px) {
+    text-align: center;
+    }
+`;
 
 const Footer = () => {
   return (

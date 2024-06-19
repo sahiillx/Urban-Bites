@@ -6,7 +6,7 @@ const Headerr = styled.div`
     margin: 30px auto;
     background: url('header_img.png') no-repeat;
     background-size: contain;
-    position: relative;
+    position: relative;    
 `;
 const HeaderContent = styled.div`
     position: absolute;
@@ -40,20 +40,36 @@ const HeaderContent = styled.div`
         border-radius: 50px;
         cursor: pointer;
     }
+
+    @media (max-width: 1050px) {
+        max-width: 45%;
+        
+        
+    }
+    @media (max-width: 750px) {
+        
+        max-width: 65%;
+        p {
+            display: none;
+        }
+        button {
+            padding: 2vw 4vw
+        }
+    }
 `;
 
 const Header = () => {
-  return (
-    <Headerr>
-        <HeaderContent>
+    return (
+        <Headerr>
+            <HeaderContent>
 
-            <h2>Order your Favourite food here</h2>
-            <p>Choose from diverse menu featuring a delectable array of dishes crafted with the finest ingredients and culniary expertise. Our mission is to satisfy your craving and elevate your dining experience, one delicious meal at a time.</p>
-            <button> View Menu</button>
-        </HeaderContent>
+                <h2>Order your Favourite food here</h2>
+                <p>Choose from diverse menu featuring a delectable array of dishes crafted with the finest ingredients and culniary expertise. Our mission is to satisfy your craving and elevate your dining experience, one delicious meal at a time.</p>
+                <button> View Menu</button>
+            </HeaderContent>
 
-    </Headerr>
-  )
+        </Headerr>
+    )
 }
 
 export default Header

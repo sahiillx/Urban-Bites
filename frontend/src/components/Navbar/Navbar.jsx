@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { assets } from "../../assets/assets";
+import { Link } from "react-router-dom";
 
 const Nav = styled.div`
   padding: 20px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  
 `;
 
 const Logo = styled.img`
@@ -20,7 +19,6 @@ const Logo = styled.img`
   @media (max-width: 900px) {
     width: 120px;
   }
-  
 `;
 const NavMenu = styled.ul`
   display: flex;
@@ -102,48 +100,51 @@ const Button = styled.button`
   @media (max-width: 900px) {
     padding: 7px 20px;
     font-size: 15px;
-
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = React.useState("Home");
   return (
     <Nav>
       <Logo src={assets.logo} />
       <NavMenu>
-        <li
+        <Link
+          to="/"
           onClick={() => setMenu("Home")}
           className={menu === "Home" ? "active" : ""}
         >
           Home
-        </li>
-        <li
+        </Link>
+        <a
+          href="#explore-menu"
           onClick={() => setMenu("Menu")}
           className={menu === "Menu" ? "active" : ""}
         >
           Menu
-        </li>
-        <li
+        </a>
+        <a
+          href="#AppDownload"
           onClick={() => setMenu("Mobile-App")}
           className={menu === "Mobile-App" ? "active" : ""}
         >
           Mobile-App
-        </li>
-        <li
+        </a>
+        <a
+          href="#footer"
           onClick={() => setMenu("Contact-Us")}
           className={menu === "Contact-Us" ? "active" : ""}
         >
           Contact us
-        </li>
+        </a>
       </NavMenu>
       <NavRight>
         <Img src={assets.search_icon} />
         <NavSearch>
-          <Img src={assets.basket_icon} />
+          <Link to="/cart"><Img src={assets.basket_icon} /></Link>
           <Dot></Dot>
         </NavSearch>
-        <Button> Sign In</Button>
+        <Button onClick={() => setShowLogin(true)}> Sign In</Button>
       </NavRight>
     </Nav>
   );

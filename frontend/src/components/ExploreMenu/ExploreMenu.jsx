@@ -6,6 +6,7 @@ const ExpMenu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow-x: auto;
 
   h1 {
     color: #262626;
@@ -22,6 +23,11 @@ const ExpMenu = styled.div`
 const ExpMenuText = styled.div`
   max-width: 60%;
   color: #808080;
+
+  @media (max-width:1050px){
+    max-width: 100%;
+    font-size: 14px;
+  }
 `;
 const ExpMenuList = styled.div`
   display: flex;
