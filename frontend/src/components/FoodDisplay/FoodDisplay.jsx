@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
 
 const Food = styled.div`
+
   margin-top: 30px;
 
   h2 {
