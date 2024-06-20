@@ -33,6 +33,8 @@ const Add = () => {
                 category: "Salad"
             })
             setImage(false);
+           
+            
         }
         else{
             toast.error(response.data.message)

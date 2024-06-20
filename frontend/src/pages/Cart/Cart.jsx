@@ -115,7 +115,8 @@ const PromoInput = styled.div`
 `;
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url } =
+    useContext(StoreContext);
   const navigate = useNavigate();
   return (
     <CartContainer>
@@ -134,7 +135,7 @@ const Cart = () => {
           if (cartItems[item._id] > 0) {
             return (
               <ItemsTitle className="item-item">
-                <img src={item.image} alt="" />
+                <img src={url+ "/images/"+item.image} alt="" />
                 <p>{item.name}</p>
                 <p>${item.price}</p>
                 <div>{cartItems[item._id]}</div>
@@ -163,12 +164,18 @@ const Cart = () => {
             <hr />
             <TotalDetails>
               <b>Total</b>
-              <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount()+ 3}</b>
+              <b>
+                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 3}
+              </b>
             </TotalDetails>
           </div>
-          <button onClick={() => {
-            navigate("/order");
-          }}>Proceed to Checkout</button>
+          <button
+            onClick={() => {
+              navigate("/order");
+            }}
+          >
+            Proceed to Checkout
+          </button>
         </CartTotal>
         <Promocode>
           <PromoContainer>

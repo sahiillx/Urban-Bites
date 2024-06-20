@@ -73,13 +73,13 @@ const ItemCounter = styled.div`
 `;
 
 const FoodItem = ({ id, name, price, description, image }) => {
-  const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
+  const {cartItems, addToCart, removeFromCart, url} = useContext(StoreContext);
  
 
   return (
     <FoodItems>
       <ImgCont>
-        <img src={image} alt="" />
+        <img src={url+"/images/"+image} alt="" />
         {!cartItems[id] ? (
           <img
             className="add"

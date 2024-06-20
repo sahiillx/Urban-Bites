@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { assets } from "../../assets/assets";
+import { StoreContext } from "../../context/StoreContext";
+import axios from "axios";
 
 const Popup = styled.div`
   position: absolute;
@@ -11,7 +13,6 @@ const Popup = styled.div`
   display: grid;
 
   p {
-    
   }
 
   span {
@@ -21,7 +22,7 @@ const Popup = styled.div`
   }
 `;
 
-const PopupContainer = styled.div`
+const PopupContainer = styled.form`
   place-self: center;
   width: max(23vw, 330px);
   color: #808080;
@@ -72,11 +73,45 @@ const PopupCondition = styled.div`
 `;
 
 const LoginPopup = ({ setShowLogin }) => {
+  const { url, setToken } = React.useContext(StoreContext);
   const [currState, setCurrState] = React.useState("Login");
+  const [data, setData] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setData((data) => ({ ...data, [name]: value }));
+  };
+
+  const onLogin = async (e) => {
+    e.preventDefault();
+
+    let new_url = url;
+    if (currState === "Login") {
+      new_url += "/api/user/login";
+    } else {
+      new_url += "/api/user/register";
+    }
+    const response = await axios.post(new_url, data);
+    if (response.data.success) {
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      // loadCartData({ token: response.data.token });
+      setShowLogin(false);
+    } else {
+      // toast.error(response.data.message);
+      alert(response.data.message);
+    }
+  };
+
   return (
     <>
       <Popup>
-        <PopupContainer>
+        <PopupContainer onSubmit={onLogin}>
           <PopupTitle>
             <h2>{currState}</h2>
             <img
@@ -89,13 +124,34 @@ const LoginPopup = ({ setShowLogin }) => {
             {currState === "Login" ? (
               <></>
             ) : (
-              <input type="text" placeholder="Your Name " required />
+              <input
+                name="name"
+                onChange={onChangeHandler}
+                value={data.name}
+                type="text"
+                placeholder="Your Name "
+                required
+              />
             )}
 
-            <input type="email" placeholder="Your Email " required />
-            <input type="password" placeholder="Your Password " required />
+            <input
+              name="email"
+              onChange={onChangeHandler}
+              value={data.email}
+              type="email"
+              placeholder="Your Email "
+              required
+            />
+            <input
+              name="password"
+              onChange={onChangeHandler}
+              value={data.password}
+              type="password"
+              placeholder="Your Password "
+              required
+            />
           </PopupInput>
-          <button>
+          <button type="submit">
             {currState === "Sign Up" ? "Create Account" : "Login"}
           </button>
           <PopupCondition>

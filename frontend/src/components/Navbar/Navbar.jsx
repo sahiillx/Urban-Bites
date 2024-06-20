@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import "./Navbar.css";
 
 const Nav = styled.div`
   padding: 20px 0;
@@ -106,9 +107,62 @@ const Button = styled.button`
   }
 `;
 
+const Profile = styled.div`
+  position: relative;
+
+  hr {
+    background-color: gray;
+    height: 1px;
+    border: none;
+  }
+
+  &:hover {
+    .dropdown {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #fff2ef;
+      padding: 12px 25px;
+      border-radius: 4px;
+      border: 1px solid tomato;
+      outline: 2px solid white;
+      list-style: none;
+    }
+  }
+`;
+
+const ProfileDropdown = styled.ul`
+  position: absolute;
+  display: none;
+  right: 0;
+  z-index: 1;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff4c24;
+    }
+  }
+
+  img {
+    width: 20px;
+  }
+`;
+
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = React.useState("Home");
-  const { getTotalCartAmount } = React.useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken } =
+    React.useContext(StoreContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
   return (
     <Nav>
       <Link to="/">
@@ -152,7 +206,24 @@ const Navbar = ({ setShowLogin }) => {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </NavSearch>
-        <Button onClick={() => setShowLogin(true)}> Sign In</Button>
+        {!token ? (
+          <Button onClick={() => setShowLogin(true)}> Sign In</Button>
+        ) : (
+          <Profile>
+            <img src={assets.profile_icon} alt="" />
+            <ProfileDropdown className="dropdown">
+              <li>
+                <img src={assets.bag_icon} alt="" />
+                <p>Orders</p>
+              </li>
+              <hr />
+              <li onClick={logout}>
+                <img src={assets.logout_icon} alt="" />
+                <p>Logout</p>
+              </li>
+            </ProfileDropdown>
+          </Profile>
+        )}
       </NavRight>
     </Nav>
   );

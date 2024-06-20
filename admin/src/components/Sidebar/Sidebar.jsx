@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import "./Sidebar.css";
 import { assets } from "../../assets/assets";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -27,7 +26,7 @@ const SidebarOption = styled.div`
   padding: 8px 10px;
   border-radius: 3px 0px 0px 3px;
   cursor: pointer;
-  background-color: ${({ isActive }) => (isActive ? "#fff0ed;" : "white")};
+  background-color: ${({ isActive }) => (isActive ? "#fff0ed" : "white")};
   ${({ isActive }) =>
     isActive &&
     `
