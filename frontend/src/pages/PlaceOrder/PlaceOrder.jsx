@@ -78,6 +78,9 @@ const TotalDetails = styled.div`
 `;
 
 const PlaceOrder = () => {
+  const { getTotalCartAmount, token, food_list, cartItems, url } =
+    useContext(StoreContext);
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -90,9 +93,6 @@ const PlaceOrder = () => {
     phone: "",
   });
 
-  const { getTotalCartAmount, token, food_list, cartItems, url, setCartItems } =
-    useContext(StoreContext);
-
   const navigate = useNavigate();
 
   const onChangeHandler = (event) => {
@@ -101,6 +101,7 @@ const PlaceOrder = () => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
+  
   const placeOrder = async (e) => {
     e.preventDefault();
     let orderItems = [];
@@ -135,6 +136,8 @@ const PlaceOrder = () => {
       navigate("/cart");
     }
   }, [token]);
+
+  
 
   return (
     <PlaceOrderContainer onSubmit={placeOrder}>
@@ -240,7 +243,7 @@ const PlaceOrder = () => {
               </b>
             </TotalDetails>
           </div>
-          <button>Proceed to Payment</button>
+          <button type="submit">Proceed to Payment</button>
         </CartTotal>
       </Right>
     </PlaceOrderContainer>
