@@ -10,7 +10,7 @@ import 'dotenv/config'
 
 // app config
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 //middlewares
 app.use(express.json()); //req to front to back that will be parcsed using json
