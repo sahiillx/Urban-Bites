@@ -1,5 +1,5 @@
 /frontend/node_modules
 /admin/node_modules
 .env
-/backend/config/
+
 /backend/node_modules
